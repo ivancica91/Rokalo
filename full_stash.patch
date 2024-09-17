@@ -1,0 +1,1914 @@
+diff --git a/ListingStatus.cs b/ListingStatus.cs
+new file mode 100644
+index 0000000..d555ecb
+--- /dev/null
++++ b/ListingStatus.cs
+@@ -0,0 +1,8 @@
++﻿using System;
++
++public class Class1
++{
++	public Class1()
++	{
++	}
++}
+diff --git a/Rokalo.Infrastructure.Email/DependencyInjection.cs b/Rokalo.Infrastructure.Email/DependencyInjection.cs
+index a901b0b..978f1f1 100644
+--- a/Rokalo.Infrastructure.Email/DependencyInjection.cs
++++ b/Rokalo.Infrastructure.Email/DependencyInjection.cs
+@@ -2,7 +2,7 @@
+ {
+     using Microsoft.Extensions.Configuration;
+     using Microsoft.Extensions.DependencyInjection;
+-    using Rokalo.Application.Contracts;
++    using Rokalo.Application.Contracts.Email;
+     using Rokalo.Infrastructure.Email.Configurations;
+ 
+     public static class DependencyInjection
+diff --git a/Rokalo.Infrastructure.Email/EmailService.cs b/Rokalo.Infrastructure.Email/EmailService.cs
+index 42c373d..0746264 100644
+--- a/Rokalo.Infrastructure.Email/EmailService.cs
++++ b/Rokalo.Infrastructure.Email/EmailService.cs
+@@ -5,7 +5,7 @@
+     using Microsoft.AspNetCore.Http;
+     using Microsoft.Extensions.Options;
+     using MimeKit;
+-    using Rokalo.Application.Contracts;
++    using Rokalo.Application.Contracts.Email;
+     using Rokalo.Infrastructure.Email.Configurations;
+     using System;
+     using System.Threading.Tasks;
+diff --git a/Rokalo.Infrastructure.Email/Rokalo.Infrastructure.Email.csproj b/Rokalo.Infrastructure.Email/Rokalo.Infrastructure.Email.csproj
+index e0cbf4c..cd5ce01 100644
+--- a/Rokalo.Infrastructure.Email/Rokalo.Infrastructure.Email.csproj
++++ b/Rokalo.Infrastructure.Email/Rokalo.Infrastructure.Email.csproj
+@@ -1,7 +1,7 @@
+ ﻿<Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <ImplicitUsings>enable</ImplicitUsings>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+@@ -16,9 +16,9 @@
+     <PackageReference Include="MailKit" Version="4.1.0" />
+     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+-    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
++    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+   </ItemGroup>
+ 
+   <ItemGroup>
+diff --git a/Rokalo.sln b/Rokalo.sln
+index df6dc94..4b3669d 100644
+--- a/Rokalo.sln
++++ b/Rokalo.sln
+@@ -36,6 +36,9 @@ EndProject
+ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo.Presentation.Api", "src\Presentation\Rokalo.Presentation.Api\Rokalo.Presentation.Api.csproj", "{1EB79B80-A5E8-4D1A-93F7-86AE289C8C59}"
+ EndProject
+ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo", "src\Rokalo\Rokalo.csproj", "{D96A0A09-E5AB-47DA-8099-409D274A601D}"
++	ProjectSection(ProjectDependencies) = postProject
++		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2} = {6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}
++	EndProjectSection
+ EndProject
+ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo.Infrastructure.Db.Users", "src\Infrastructure\Rokalo.Infrastructure.Db.Users\Rokalo.Infrastructure.Db.Users.csproj", "{9D4EE84F-23BA-400E-A5FD-C2C175F781C2}"
+ EndProject
+@@ -44,7 +47,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution
+ 		docker-compose.yml = docker-compose.yml
+ 	EndProjectSection
+ EndProject
+-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rokalo.Infrastructure.Email", "Rokalo.Infrastructure.Email\Rokalo.Infrastructure.Email.csproj", "{D2254736-D53F-405F-B77F-93FB53C5658A}"
++Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo.Infrastructure.Email", "Rokalo.Infrastructure.Email\Rokalo.Infrastructure.Email.csproj", "{D2254736-D53F-405F-B77F-93FB53C5658A}"
++	ProjectSection(ProjectDependencies) = postProject
++		{E4383A88-F210-4AA2-AC5D-B41473CB4AAC} = {E4383A88-F210-4AA2-AC5D-B41473CB4AAC}
++	EndProjectSection
++EndProject
++Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo.Infrastructure.Security", "src\Infrastructure\Rokalo.Infrastructure.Security\Rokalo.Infrastructure.Security.csproj", "{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}"
+ 	ProjectSection(ProjectDependencies) = postProject
+ 		{E4383A88-F210-4AA2-AC5D-B41473CB4AAC} = {E4383A88-F210-4AA2-AC5D-B41473CB4AAC}
+ 	EndProjectSection
+@@ -103,6 +111,10 @@ Global
+ 		{D2254736-D53F-405F-B77F-93FB53C5658A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+ 		{D2254736-D53F-405F-B77F-93FB53C5658A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+ 		{D2254736-D53F-405F-B77F-93FB53C5658A}.Release|Any CPU.Build.0 = Release|Any CPU
++		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
++		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
++		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
++		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}.Release|Any CPU.Build.0 = Release|Any CPU
+ 	EndGlobalSection
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+@@ -125,6 +137,7 @@ Global
+ 		{D96A0A09-E5AB-47DA-8099-409D274A601D} = {77022C92-C143-45B4-A718-AB2864575525}
+ 		{9D4EE84F-23BA-400E-A5FD-C2C175F781C2} = {3494C0A5-30D4-43AE-B3A3-CBED3E6A98BE}
+ 		{D2254736-D53F-405F-B77F-93FB53C5658A} = {3494C0A5-30D4-43AE-B3A3-CBED3E6A98BE}
++		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2} = {3494C0A5-30D4-43AE-B3A3-CBED3E6A98BE}
+ 	EndGlobalSection
+ 	GlobalSection(ExtensibilityGlobals) = postSolution
+ 		SolutionGuid = {DC7C79F8-11DD-4A70-9917-EC63D173DED2}
+diff --git a/src/Application/Rokalo.Application.Contracts/IEmailService.cs b/src/Application/Rokalo.Application.Contracts/Email/IEmailService.cs
+similarity index 78%
+rename from src/Application/Rokalo.Application.Contracts/IEmailService.cs
+rename to src/Application/Rokalo.Application.Contracts/Email/IEmailService.cs
+index bd5409d..11166c2 100644
+--- a/src/Application/Rokalo.Application.Contracts/IEmailService.cs
++++ b/src/Application/Rokalo.Application.Contracts/Email/IEmailService.cs
+@@ -1,4 +1,4 @@
+-﻿namespace Rokalo.Application.Contracts
++﻿namespace Rokalo.Application.Contracts.Email
+ {
+     using System;
+     using System.Threading.Tasks;
+diff --git a/src/Application/Rokalo.Application.Contracts/IRefreshTokenRepository.cs b/src/Application/Rokalo.Application.Contracts/IRefreshTokenRepository.cs
+new file mode 100644
+index 0000000..c1945b6
+--- /dev/null
++++ b/src/Application/Rokalo.Application.Contracts/IRefreshTokenRepository.cs
+@@ -0,0 +1,20 @@
++﻿namespace Rokalo.Application.Contracts
++{
++    using Rokalo.Domain;
++    using System.Threading.Tasks;
++    using System;
++    using System.Threading;
++    using System.Collections.Generic;
++
++    public interface IRefreshTokenRepository
++    {
++        Task<RefreshToken?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
++
++        Task<List<RefreshToken>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken);
++
++        void Add(RefreshToken refreshToken);
++
++        void Delete(List<RefreshToken> refreshTokens);
++
++    }
++}
+diff --git a/src/Application/Rokalo.Application.Contracts/IUsersUnitOfWork.cs b/src/Application/Rokalo.Application.Contracts/IUnitOfWork.cs
+similarity index 71%
+rename from src/Application/Rokalo.Application.Contracts/IUsersUnitOfWork.cs
+rename to src/Application/Rokalo.Application.Contracts/IUnitOfWork.cs
+index f0013fa..1882159 100644
+--- a/src/Application/Rokalo.Application.Contracts/IUsersUnitOfWork.cs
++++ b/src/Application/Rokalo.Application.Contracts/IUnitOfWork.cs
+@@ -3,10 +3,13 @@
+     using System.Threading;
+     using System.Threading.Tasks;
+ 
+-    public interface IUsersUnitOfWork
++    public interface IUnitOfWork
+     {
+         Task SaveChangesAsync(CancellationToken cancellationToken);
+ 
+         IUserRepository Users { get; }
++
++        IRefreshTokenRepository RefreshTokens { get; }
++
+     }
+ }
+diff --git a/src/Application/Rokalo.Application.Contracts/Models/FacebookUserData.cs b/src/Application/Rokalo.Application.Contracts/Models/FacebookUserData.cs
+new file mode 100644
+index 0000000..27c89fa
+--- /dev/null
++++ b/src/Application/Rokalo.Application.Contracts/Models/FacebookUserData.cs
+@@ -0,0 +1,13 @@
++﻿namespace Rokalo.Application.Contracts.Models
++{
++    using System;
++
++    public class FacebookUserData
++    {
++        public Guid Id { get; set; }
++
++        public string Name { get; set; } = default!;
++
++        public string Email { get; set; } = default!;
++    }
++}
+diff --git a/src/Application/Rokalo.Application.Contracts/Rokalo.Application.Contracts.csproj b/src/Application/Rokalo.Application.Contracts/Rokalo.Application.Contracts.csproj
+index 666a877..ac359ba 100644
+--- a/src/Application/Rokalo.Application.Contracts/Rokalo.Application.Contracts.csproj
++++ b/src/Application/Rokalo.Application.Contracts/Rokalo.Application.Contracts.csproj
+@@ -1,7 +1,7 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+diff --git a/src/Application/Rokalo.Application.Contracts/Security/IFacebookOAuthService.cs b/src/Application/Rokalo.Application.Contracts/Security/IFacebookOAuthService.cs
+new file mode 100644
+index 0000000..4ee5543
+--- /dev/null
++++ b/src/Application/Rokalo.Application.Contracts/Security/IFacebookOAuthService.cs
+@@ -0,0 +1,10 @@
++﻿namespace Rokalo.Application.Contracts.Security
++{
++    using Rokalo.Application.Contracts.Models;
++    using System.Threading.Tasks;
++
++    public interface IFacebookOAuthService
++    {
++        Task<FacebookUserData> GetUserDataAsync(string accessToken);
++    }
++}
+diff --git a/src/Application/Rokalo.Application.Contracts/Security/IPasswordHashingService.cs b/src/Application/Rokalo.Application.Contracts/Security/IPasswordHashingService.cs
+new file mode 100644
+index 0000000..5b4d865
+--- /dev/null
++++ b/src/Application/Rokalo.Application.Contracts/Security/IPasswordHashingService.cs
+@@ -0,0 +1,9 @@
++﻿namespace Rokalo.Application.Contracts.Security
++{
++    public interface IPasswordHashingService
++    {
++        string Hash(string password);
++
++        bool VerifyHash(string password, string providedPassword);
++    }
++}
+diff --git a/src/Application/Rokalo.Application.Contracts/Security/ITokenService.cs b/src/Application/Rokalo.Application.Contracts/Security/ITokenService.cs
+new file mode 100644
+index 0000000..41856f0
+--- /dev/null
++++ b/src/Application/Rokalo.Application.Contracts/Security/ITokenService.cs
+@@ -0,0 +1,11 @@
++﻿namespace Rokalo.Application.Contracts.Security
++{
++    using Rokalo.Domain;
++
++    public interface ITokenService
++    {
++        string GenerateJwtToken(User user);
++
++        RefreshToken GenerateRefreshToken(User user);
++    }
++}
+diff --git a/src/Application/Rokalo.Application/DependencyInjection.cs b/src/Application/Rokalo.Application/DependencyInjection.cs
+index ac98852..edeac07 100644
+--- a/src/Application/Rokalo.Application/DependencyInjection.cs
++++ b/src/Application/Rokalo.Application/DependencyInjection.cs
+@@ -4,7 +4,6 @@
+     using MediatR;
+     using Microsoft.Extensions.DependencyInjection;
+     using Rokalo.Application.Internal.Behaviors;
+-    using Rokalo.Application.Services;
+     using System.Reflection;
+ 
+     public static class DependencyInjection
+@@ -13,8 +12,6 @@
+         {
+             services.AddApplicationConfiguration(Assembly.GetExecutingAssembly());
+ 
+-            services.AddScoped<IPasswordHashingService, PasswordHashingService>();
+-
+             return services;
+         }
+         public static IServiceCollection AddApplicationConfiguration(
+diff --git a/src/Application/Rokalo.Application/Helpers/ValidatorExtensions.cs b/src/Application/Rokalo.Application/Helpers/ValidatorExtensions.cs
+index 77fe58a..d823fa3 100644
+--- a/src/Application/Rokalo.Application/Helpers/ValidatorExtensions.cs
++++ b/src/Application/Rokalo.Application/Helpers/ValidatorExtensions.cs
+@@ -4,12 +4,12 @@
+ 
+     public static class ValidatorExtensions
+     {
+-        public static IRuleBuilder<T, string> Password<T>(this IRuleBuilder<T, string>
++        public static IRuleBuilder<T, string?> Password<T>(this IRuleBuilder<T, string?>
+             ruleBuilder)
+         {
+             var options = ruleBuilder
+                 .NotEmpty()
+-                .MinimumLength(12).WithMessage("Password must be at least 12 characters long.")
++                .MinimumLength(8).WithMessage("Password must be at least 12 characters long.")
+                 .Matches("[A-Z]").WithMessage("Password must contain at least 1 uppercase letter.")
+                 .Matches("[a-z]").WithMessage("Password must contain at least 1 lowercase letter.")
+                 .Matches("[0-9]").WithMessage("Password must contain at least 1 number.")
+@@ -17,7 +17,5 @@
+ 
+             return options;
+         }
+-
+-
+     }
+ }
+diff --git a/src/Application/Rokalo.Application/Rokalo.Application.csproj b/src/Application/Rokalo.Application/Rokalo.Application.csproj
+index fa5e53b..59c95de 100644
+--- a/src/Application/Rokalo.Application/Rokalo.Application.csproj
++++ b/src/Application/Rokalo.Application/Rokalo.Application.csproj
+@@ -1,7 +1,7 @@
+ ﻿<Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+@@ -16,7 +16,8 @@
+     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
+     <PackageReference Include="MediatR" Version="12.0.1" />
+     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjectionFixed" Version="5.1.2" />
+-    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="7.0.9" />
++    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+   </ItemGroup>
+ 
+   <ItemGroup>
+diff --git a/src/Application/Rokalo.Application/User/Commands/ConfirmEmailCommand.cs b/src/Application/Rokalo.Application/User/Commands/ConfirmEmailCommand.cs
+index 9c5f418..79a20aa 100644
+--- a/src/Application/Rokalo.Application/User/Commands/ConfirmEmailCommand.cs
++++ b/src/Application/Rokalo.Application/User/Commands/ConfirmEmailCommand.cs
+@@ -20,9 +20,9 @@
+ 
+     internal sealed class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand>
+     {
+-        private readonly IUsersUnitOfWork unitOfWork;
++        private readonly IUnitOfWork unitOfWork;
+ 
+-        public ConfirmEmailCommandHandler(IUsersUnitOfWork unitOfWork)
++        public ConfirmEmailCommandHandler(IUnitOfWork unitOfWork)
+         {
+             this.unitOfWork = unitOfWork;
+         }
+@@ -41,5 +41,4 @@
+             }
+         }
+     }
+-
+ }
+diff --git a/src/Application/Rokalo.Application/User/Commands/FacebookLoginCommand.cs b/src/Application/Rokalo.Application/User/Commands/FacebookLoginCommand.cs
+new file mode 100644
+index 0000000..aa333df
+--- /dev/null
++++ b/src/Application/Rokalo.Application/User/Commands/FacebookLoginCommand.cs
+@@ -0,0 +1,55 @@
++﻿namespace Rokalo.Application.User.Commands
++{
++    using MediatR;
++    using Rokalo.Application.Contracts;
++    using Rokalo.Application.Contracts.Security;
++    using Rokalo.Application.User.Models;
++    using System.Threading;
++    using System.Threading.Tasks;
++    using Rokalo.Domain;
++    using System;
++
++    public record FacebookLoginCommand(string AccessToken) : IRequest<TokenResponse>;
++
++    internal sealed class FacebookLoginCommandHandler : IRequestHandler<FacebookLoginCommand, TokenResponse>
++    {
++        private readonly IUnitOfWork unitOfWork;
++        private readonly ITokenService tokenService;
++        private readonly IFacebookOAuthService facebookOAuthService;
++
++        public FacebookLoginCommandHandler(IUnitOfWork unitOfWork, ITokenService tokenService, IFacebookOAuthService facebookOAuthService)
++        {
++            this.unitOfWork = unitOfWork;
++            this.tokenService = tokenService;
++            this.facebookOAuthService = facebookOAuthService;
++        }
++
++        public async Task<TokenResponse> Handle(FacebookLoginCommand request, CancellationToken cancellationToken)
++        {
++            var fbUser = await this.facebookOAuthService.GetUserDataAsync(request.AccessToken);
++
++            var nameParts = fbUser.Name.Split(' ', 2);
++
++            var user = await this.unitOfWork.Users.GetByEmailAsync(fbUser.Email, cancellationToken);
++
++            if (user == null)
++            {
++                user = new User(
++                    Guid.NewGuid(),
++                    fbUser.Email,
++                    null,
++                    true,
++                    Guid.NewGuid().ToString()
++                    );
++            }
++
++            this.unitOfWork.Users.Add(user);
++            await this.unitOfWork.SaveChangesAsync(cancellationToken);
++
++            var jwtToken = this.tokenService.GenerateJwtToken(user);
++            var refreshToken = this.tokenService.GenerateRefreshToken(user);
++
++            return new TokenResponse(jwtToken, refreshToken.Id.ToString());
++        }
++    }
++}
+diff --git a/src/Application/Rokalo.Application/User/Commands/LoginCommand.cs b/src/Application/Rokalo.Application/User/Commands/LoginCommand.cs
+new file mode 100644
+index 0000000..f51c551
+--- /dev/null
++++ b/src/Application/Rokalo.Application/User/Commands/LoginCommand.cs
+@@ -0,0 +1,75 @@
++﻿namespace Rokalo.Application.User.Commands
++{
++    using FluentValidation;
++    using MediatR;
++    using Rokalo.Application.Contracts;
++    using Rokalo.Application.Contracts.Security;
++    using Rokalo.Application.Helpers;
++    using Rokalo.Application.User.Models;
++    using Rokalo.Blocks.Common.Exceptions;
++    using System.Threading;
++    using System.Threading.Tasks;
++
++    public record LoginCommand(string Email, string Password) : IRequest<TokenResponse>;
++
++    internal sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
++    {
++        public LoginCommandValidator()
++        {
++            RuleFor(x => x.Email).NotEmpty();
++            RuleFor(x => x.Password).Password();
++        }
++    }
++
++    internal sealed class LoginCommandHandler : IRequestHandler<LoginCommand, TokenResponse>
++    {
++        private readonly IUnitOfWork unitOfWork;
++        private readonly IPasswordHashingService hashingService;
++        private readonly ITokenService tokenService;
++
++        public LoginCommandHandler(IUnitOfWork unitOfWork,IPasswordHashingService hashingService, ITokenService tokenService)
++        {
++            this.unitOfWork = unitOfWork;
++            this.hashingService = hashingService;
++            this.tokenService = tokenService;
++        }
++
++        public async Task<TokenResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
++        {
++            var user = await this.unitOfWork.Users.GetByEmailAsync(request.Email, cancellationToken);
++
++            if (user == null)
++            {
++                throw new ServiceValidationException("Invalid user credentials.");
++            }
++
++            if (user.Password == null)
++            {
++                throw new ServiceValidationException("Invalid user credentials.");
++            }
++
++            var pass = this.hashingService.VerifyHash(user.Password, request.Password);
++
++            if (!pass)
++            {
++                throw new ServiceValidationException("Invalid user credentials.");
++            }
++
++            var jwtToken = this.tokenService.GenerateJwtToken(user);
++
++            var refreshToken = this.tokenService.GenerateRefreshToken(user);
++
++            var oldTokens = await this.unitOfWork.RefreshTokens.GetByUserIdAsync(user.Id, cancellationToken);
++
++            this.unitOfWork.RefreshTokens.Delete(oldTokens);
++
++            this.unitOfWork.RefreshTokens.Add(refreshToken);
++
++            await this.unitOfWork.SaveChangesAsync(cancellationToken);
++
++            return new TokenResponse(
++                jwtToken,
++                refreshToken.Id.ToString());
++        }
++    }
++}
+diff --git a/src/Application/Rokalo.Application/User/Commands/RegisterUserCommand.cs b/src/Application/Rokalo.Application/User/Commands/RegisterUserCommand.cs
+index b87032e..4af3cdf 100644
+--- a/src/Application/Rokalo.Application/User/Commands/RegisterUserCommand.cs
++++ b/src/Application/Rokalo.Application/User/Commands/RegisterUserCommand.cs
+@@ -3,8 +3,11 @@
+     using FluentValidation;
+     using MediatR;
+     using Rokalo.Application.Contracts;
++    using Rokalo.Application.Contracts.Email;
++    using Rokalo.Application.Contracts.Security;
+     using Rokalo.Application.Helpers;
+-    using Rokalo.Application.Services;
++    using Rokalo.Application.User.Responses;
++    using Rokalo.Blocks.Common.Exceptions;
+     using Rokalo.Domain;
+     using System;
+     using System.Threading;
+@@ -12,13 +15,13 @@
+ 
+     public record RegisterUserCommand(
+         string Email,
+-        string Password,
++        string? Password,
+         string FirstName,
+         string LastName,
+         string PhoneNumber,
+         string MobileNumber,
+         string Address,
+-        int CityId) : IRequest;
++        int? CityId) : IRequest<RegisterUserResponse>;
+ 
+     internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+     {
+@@ -27,9 +30,9 @@
+         private const int MaxPhoneNumberLength = 20;
+         private const int MaxAddressLength = 100;
+ 
+-        private readonly IUsersUnitOfWork unitOfWork;
++        private readonly IUnitOfWork unitOfWork;
+ 
+-        public RegisterUserCommandValidator(IUsersUnitOfWork unitOfWork)
++        public RegisterUserCommandValidator(IUnitOfWork unitOfWork)
+         {
+             this.unitOfWork = unitOfWork;
+ 
+@@ -53,21 +56,26 @@
+         }
+     }
+ 
+-    internal sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand>
++    internal sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
+     {
+-        private readonly IUsersUnitOfWork unitOfWork;
++        private readonly IUnitOfWork unitOfWork;
+         private readonly IPasswordHashingService hashingService;
+         private readonly IEmailService emailService;
+ 
+-        public RegisterUserCommandHandler(IUsersUnitOfWork unitOfWork, IPasswordHashingService hashingService, IEmailService emailService)
++        public RegisterUserCommandHandler(IUnitOfWork unitOfWork, IPasswordHashingService hashingService, IEmailService emailService)
+         {
+             this.unitOfWork = unitOfWork;
+             this.hashingService = hashingService;
+             this.emailService = emailService;
+         }
+ 
+-        public async Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
++        public async Task<RegisterUserResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+         {
++            if (request.Password == null)
++            {
++                throw new ServiceValidationException("Invalid user credentials.");
++            }
++
+             string hashedPassword = this.hashingService.Hash(request.Password);
+ 
+             User user = new (
+@@ -83,7 +91,8 @@
+             await this.unitOfWork.SaveChangesAsync(cancellationToken);
+ 
+             await this.emailService.SendConfirmEmailAsync(user.Email, user.Id, user.EmailVerificationCode);
++
++            return new RegisterUserResponse(user.Id, user.Email);
+         }
+     }
+-
+ }
+diff --git a/src/Application/Rokalo.Application/User/Commands/ResendConfirmationEmailCommand.cs b/src/Application/Rokalo.Application/User/Commands/ResendConfirmationEmailCommand.cs
+index 7a9b425..239e419 100644
+--- a/src/Application/Rokalo.Application/User/Commands/ResendConfirmationEmailCommand.cs
++++ b/src/Application/Rokalo.Application/User/Commands/ResendConfirmationEmailCommand.cs
+@@ -7,14 +7,15 @@
+     using System.Threading.Tasks;
+     using Rokalo.Domain;
+     using System;
++    using Rokalo.Application.Contracts.Email;
+ 
+     public record ResendConfirmationEmailCommand(string email) : IRequest;
+ 
+     internal sealed class ResendConfirmationEmailValidator : AbstractValidator<ResendConfirmationEmailCommand>
+     {
+-        private readonly IUsersUnitOfWork unitOfWork;
++        private readonly IUnitOfWork unitOfWork;
+ 
+-        public ResendConfirmationEmailValidator(IUsersUnitOfWork unitOfWork)
++        public ResendConfirmationEmailValidator(IUnitOfWork unitOfWork)
+         {
+             this.unitOfWork = unitOfWork;
+ 
+@@ -24,10 +25,10 @@
+ 
+     internal sealed class ResendConfirmationEmailCommandHandler : IRequestHandler<ResendConfirmationEmailCommand>
+     {
+-        private readonly IUsersUnitOfWork unitOfWork;
++        private readonly IUnitOfWork unitOfWork;
+         private readonly IEmailService emailService;
+ 
+-        public ResendConfirmationEmailCommandHandler(IUsersUnitOfWork unitOfWork, IEmailService emailService)
++        public ResendConfirmationEmailCommandHandler(IUnitOfWork unitOfWork, IEmailService emailService)
+         {
+             this.unitOfWork = unitOfWork;
+             this.emailService = emailService;
+diff --git a/src/Application/Rokalo.Application/User/Commands/UpdatePasswordCommand.cs b/src/Application/Rokalo.Application/User/Commands/UpdatePasswordCommand.cs
+new file mode 100644
+index 0000000..064626c
+--- /dev/null
++++ b/src/Application/Rokalo.Application/User/Commands/UpdatePasswordCommand.cs
+@@ -0,0 +1,58 @@
++﻿namespace Rokalo.Application.User.Commands
++{
++    using FluentValidation;
++    using MediatR;
++    using Rokalo.Application.Contracts;
++    using Rokalo.Application.Contracts.Security;
++    using Rokalo.Application.Helpers;
++    using Rokalo.Blocks.Common.Exceptions;
++    using System.Threading;
++    using System.Threading.Tasks;
++
++    public record UpdatePasswordCommand(string Email, string Password, string NewPassword) : IRequest;
++
++    internal sealed class UpdatePasswordCommandValidator : AbstractValidator<UpdatePasswordCommand>
++    {
++        public UpdatePasswordCommandValidator()
++        {
++            this.RuleFor(r => r.Email).NotEmpty();
++
++            this.RuleFor(r => r.Password).Password();
++
++            this.RuleFor(r => r.NewPassword).Password();
++
++            this.RuleFor(r => r.Password).NotEqual(r => r.NewPassword).WithMessage("New password cannot match old password.");
++        }
++    }
++
++    internal sealed class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommand>
++    {
++        private readonly IUnitOfWork unitOfWork;
++        private readonly IPasswordHashingService passwordHashingService;
++        public UpdatePasswordCommandHandler(IUnitOfWork unitOfWork, IPasswordHashingService passwordHashingService)
++        {
++            this.unitOfWork = unitOfWork;
++            this.passwordHashingService = passwordHashingService;
++        }
++
++        public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
++        {
++            var user = await this.unitOfWork.Users.GetByEmailAsync(request.Email, cancellationToken);
++
++            var isOldPassValid = passwordHashingService.VerifyHash(user.Password, request.Password);
++
++            if (!isOldPassValid)
++            {
++                throw new ServiceValidationException("Invalid credentials");
++            }
++
++            var newPassHash = passwordHashingService.Hash(request.NewPassword);
++
++            user.UpdatePassword(newPassHash);
++
++            this.unitOfWork.Users.Update(user);
++
++            await this.unitOfWork.SaveChangesAsync(cancellationToken);
++        }
++    }
++}
+diff --git a/src/Application/Rokalo.Application/User/Models/TokenResponse.cs b/src/Application/Rokalo.Application/User/Models/TokenResponse.cs
+new file mode 100644
+index 0000000..6c6a27b
+--- /dev/null
++++ b/src/Application/Rokalo.Application/User/Models/TokenResponse.cs
+@@ -0,0 +1,4 @@
++﻿namespace Rokalo.Application.User.Models
++{
++    public record TokenResponse(string AccessToken, string RefreshToken);
++}
+diff --git a/src/Application/Rokalo.Application/User/Responses/RegisterUserResponse.cs b/src/Application/Rokalo.Application/User/Responses/RegisterUserResponse.cs
+new file mode 100644
+index 0000000..1f7cee2
+--- /dev/null
++++ b/src/Application/Rokalo.Application/User/Responses/RegisterUserResponse.cs
+@@ -0,0 +1,6 @@
++﻿namespace Rokalo.Application.User.Responses
++{
++    using System;
++
++    public record RegisterUserResponse(Guid UserId, string Email);
++}
+diff --git a/src/Blocks/Rokalo.Blocks.Common.Exceptions/Rokalo.Blocks.Common.Exceptions.csproj b/src/Blocks/Rokalo.Blocks.Common.Exceptions/Rokalo.Blocks.Common.Exceptions.csproj
+index de3c61c..8d2b232 100644
+--- a/src/Blocks/Rokalo.Blocks.Common.Exceptions/Rokalo.Blocks.Common.Exceptions.csproj
++++ b/src/Blocks/Rokalo.Blocks.Common.Exceptions/Rokalo.Blocks.Common.Exceptions.csproj
+@@ -1,7 +1,7 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+diff --git a/src/Blocks/Rokalo.Blocks.Common.Extensions/Rokalo.Blocks.Common.Extensions.csproj b/src/Blocks/Rokalo.Blocks.Common.Extensions/Rokalo.Blocks.Common.Extensions.csproj
+index de3c61c..8d2b232 100644
+--- a/src/Blocks/Rokalo.Blocks.Common.Extensions/Rokalo.Blocks.Common.Extensions.csproj
++++ b/src/Blocks/Rokalo.Blocks.Common.Extensions/Rokalo.Blocks.Common.Extensions.csproj
+@@ -1,7 +1,7 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+diff --git a/src/Blocks/Rokalo.Blocks.Common.Mapping.Configuration/Rokalo.Blocks.Common.Mapping.Configuration.csproj b/src/Blocks/Rokalo.Blocks.Common.Mapping.Configuration/Rokalo.Blocks.Common.Mapping.Configuration.csproj
+index 0594e0a..0167d9d 100644
+--- a/src/Blocks/Rokalo.Blocks.Common.Mapping.Configuration/Rokalo.Blocks.Common.Mapping.Configuration.csproj
++++ b/src/Blocks/Rokalo.Blocks.Common.Mapping.Configuration/Rokalo.Blocks.Common.Mapping.Configuration.csproj
+@@ -1,13 +1,13 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+   <ItemGroup>
+-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
++    <PackageReference Include="AutoMapper" Version="13.0.1" />
++    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+   </ItemGroup>
+ 
+   <ItemGroup>
+diff --git a/src/Blocks/Rokalo.Blocks.Common.Mapping.Core/Rokalo.Blocks.Common.Mapping.Core.csproj b/src/Blocks/Rokalo.Blocks.Common.Mapping.Core/Rokalo.Blocks.Common.Mapping.Core.csproj
+index e36a0a7..689e0e1 100644
+--- a/src/Blocks/Rokalo.Blocks.Common.Mapping.Core/Rokalo.Blocks.Common.Mapping.Core.csproj
++++ b/src/Blocks/Rokalo.Blocks.Common.Mapping.Core/Rokalo.Blocks.Common.Mapping.Core.csproj
+@@ -1,7 +1,7 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+diff --git a/src/Blocks/Rokalo.Blocks.Common.Serilog.Configuration/Rokalo.Blocks.Common.Serilog.Configuration.csproj b/src/Blocks/Rokalo.Blocks.Common.Serilog.Configuration/Rokalo.Blocks.Common.Serilog.Configuration.csproj
+index 5ff0b33..11fb453 100644
+--- a/src/Blocks/Rokalo.Blocks.Common.Serilog.Configuration/Rokalo.Blocks.Common.Serilog.Configuration.csproj
++++ b/src/Blocks/Rokalo.Blocks.Common.Serilog.Configuration/Rokalo.Blocks.Common.Serilog.Configuration.csproj
+@@ -1,7 +1,7 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+diff --git a/src/Domain/Rokalo.Domain/Enums/ItemCondition.cs b/src/Domain/Rokalo.Domain/Enums/ItemCondition.cs
+new file mode 100644
+index 0000000..d3f0dfa
+--- /dev/null
++++ b/src/Domain/Rokalo.Domain/Enums/ItemCondition.cs
+@@ -0,0 +1,9 @@
++﻿namespace Rokalo.Domain.Enums
++{
++    public enum ItemCondition
++    {
++        New,
++        Used,
++        Refurbished
++    }
++}
+\ No newline at end of file
+diff --git a/src/Domain/Rokalo.Domain/Enums/ListingStatus.cs b/src/Domain/Rokalo.Domain/Enums/ListingStatus.cs
+new file mode 100644
+index 0000000..1a77219
+--- /dev/null
++++ b/src/Domain/Rokalo.Domain/Enums/ListingStatus.cs
+@@ -0,0 +1,9 @@
++﻿namespace Rokalo.Domain.Enums
++{
++    public enum ListingStatus
++    {
++        Available,
++        Sold,
++        Deleted
++    }
++}
+\ No newline at end of file
+diff --git a/src/Domain/Rokalo.Domain/ListingItem.cs b/src/Domain/Rokalo.Domain/ListingItem.cs
+new file mode 100644
+index 0000000..b1b232a
+--- /dev/null
++++ b/src/Domain/Rokalo.Domain/ListingItem.cs
+@@ -0,0 +1,29 @@
++﻿namespace Rokalo.Domain
++{
++    using Rokalo.Domain.Enums;
++    using System;
++    using System.Collections.Generic;
++
++    public class ListingItem
++    {
++        public ListingItem() { }
++
++        public Guid Id { get; protected set; }
++        public Guid ProfileId { get; protected set; }
++        public Guid CategoryId { get; protected set; }
++        public Guid CityId { get; protected set; }
++        public string Name { get; set; } = default!;
++        public string Description { get; set; }
++        public decimal Price { get; set; }
++        public DateTime CreatedAt { get; set; }
++        public DateTime UpdatedAt { get; set; }
++        public ListingStatus Status { get; set; } = ListingStatus.Available;
++        public ItemCondition Condition { get; set; }
++
++        // add this and enable file upload
++        //public List<string> ImageUrls { get; set; } = new List<string>();
++        public List<string> Tags { get; set; } = new List<string>();
++        public string ContactPhone { get; set; }
++        public string ContactEmail { get; set; }
++    }
++}
+diff --git a/src/Domain/Rokalo.Domain/RefreshToken.cs b/src/Domain/Rokalo.Domain/RefreshToken.cs
+new file mode 100644
+index 0000000..822c02a
+--- /dev/null
++++ b/src/Domain/Rokalo.Domain/RefreshToken.cs
+@@ -0,0 +1,27 @@
++﻿namespace Rokalo.Domain
++{
++    using System;
++
++    public class RefreshToken
++    {
++        public RefreshToken(
++            Guid id,
++            Guid userId,
++            DateTime createdAt,
++            DateTime expiresAt)
++        {
++            this.Id = id;
++            this.UserId = userId;
++            this.CreatedAt = createdAt;
++            this.ExpiresAt = expiresAt;
++        }
++
++        public Guid Id { get; protected set; }
++
++        public Guid UserId { get; protected set; }
++
++        public DateTime CreatedAt { get; protected set; }
++
++        public DateTime ExpiresAt { get; protected set; }
++    }
++}
+diff --git a/src/Domain/Rokalo.Domain/Rokalo.Domain.csproj b/src/Domain/Rokalo.Domain/Rokalo.Domain.csproj
+index de3c61c..8d2b232 100644
+--- a/src/Domain/Rokalo.Domain/Rokalo.Domain.csproj
++++ b/src/Domain/Rokalo.Domain/Rokalo.Domain.csproj
+@@ -1,7 +1,7 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+diff --git a/src/Domain/Rokalo.Domain/User.cs b/src/Domain/Rokalo.Domain/User.cs
+index 79128f6..c42a949 100644
+--- a/src/Domain/Rokalo.Domain/User.cs
++++ b/src/Domain/Rokalo.Domain/User.cs
+@@ -5,10 +5,11 @@
+ 
+     public class User
+     {
++        private User() { }
+         public User(
+             Guid id,
+             string email,
+-            string password,
++            string? password,
+             bool isEmailVerified,
+             string emailVerificationCode)
+         {
+@@ -21,13 +22,13 @@
+ 
+         public Guid Id { get; protected set; }
+         public string Email { get; protected set; }
+-        public string Password { get; protected set; }
++        public string? Password { get; protected set; }
+         public bool IsEmailVerified { get; protected set; }
+         public string EmailVerificationCode{ get; protected set; }
+         public Profile Profile { get; protected set; } = default!;
+         public List<Claim> Claims { get; protected set; } = new();
+ 
+-        public void Update(string password)
++        public void UpdatePassword(string password)
+         {
+             this.Password = password; 
+         }
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Configurations/RefreshTokenEntityTypeConfiguration.cs b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Configurations/RefreshTokenEntityTypeConfiguration.cs
+new file mode 100644
+index 0000000..735b473
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Configurations/RefreshTokenEntityTypeConfiguration.cs
+@@ -0,0 +1,22 @@
++﻿namespace Rokalo.Infrastructure.Db.Users.Configurations
++{
++    using Microsoft.EntityFrameworkCore;
++    using Microsoft.EntityFrameworkCore.Metadata.Builders;
++    using Rokalo.Domain;
++
++    internal sealed class RefreshTokenEntityTypeConfiguration : IEntityTypeConfiguration<RefreshToken>
++    {
++        public void Configure(EntityTypeBuilder<RefreshToken> builder)
++        {
++            builder.ToTable(nameof(RefreshToken));
++
++            builder.HasKey(p => p.Id);
++
++            builder.Property(p => p.UserId).IsRequired();
++
++            builder.Property(p => p.CreatedAt).IsRequired();
++
++            builder.Property(p => p.ExpiresAt).IsRequired();
++        }
++    }
++}
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/DependencyInjection.cs b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/DependencyInjection.cs
+index c843811..ac71065 100644
+--- a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/DependencyInjection.cs
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/DependencyInjection.cs
+@@ -16,7 +16,9 @@
+ 
+             services.AddScoped<IUserRepository, UserRepository>();
+ 
+-            services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
++            services.AddScoped<IUnitOfWork, UnitOfWork>();
++
++            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+ 
+             return services;
+         }
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/20240730130528_AddRefreshTokensTable.Designer.cs b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/20240730130528_AddRefreshTokensTable.Designer.cs
+new file mode 100644
+index 0000000..6dffb09
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/20240730130528_AddRefreshTokensTable.Designer.cs
+@@ -0,0 +1,155 @@
++﻿// <auto-generated />
++using System;
++using Microsoft.EntityFrameworkCore;
++using Microsoft.EntityFrameworkCore.Infrastructure;
++using Microsoft.EntityFrameworkCore.Metadata;
++using Microsoft.EntityFrameworkCore.Migrations;
++using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
++using Rokalo.Infrastructure.Db.Users;
++
++#nullable disable
++
++namespace Rokalo.Infrastructure.Db.Users.Migrations
++{
++    [DbContext(typeof(UsersDbContext))]
++    [Migration("20240730130528_AddRefreshTokensTable")]
++    partial class AddRefreshTokensTable
++    {
++        /// <inheritdoc />
++        protected override void BuildTargetModel(ModelBuilder modelBuilder)
++        {
++#pragma warning disable 612, 618
++            modelBuilder
++                .HasAnnotation("ProductVersion", "8.0.7")
++                .HasAnnotation("Relational:MaxIdentifierLength", 128);
++
++            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
++
++            modelBuilder.Entity("Rokalo.Domain.Claim", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<Guid>("UserId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Value")
++                        .IsRequired()
++                        .HasColumnType("nvarchar(max)");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("UserId");
++
++                    b.ToTable("Claims", (string)null);
++                });
++
++            modelBuilder.Entity("Rokalo.Domain.Profile", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("FirstName")
++                        .HasColumnType("nvarchar(max)");
++
++                    b.Property<string>("LastName")
++                        .HasColumnType("nvarchar(max)");
++
++                    b.Property<string>("Mobile")
++                        .HasColumnType("nvarchar(max)");
++
++                    b.Property<string>("Number")
++                        .HasColumnType("nvarchar(max)");
++
++                    b.Property<string>("Oib")
++                        .HasMaxLength(11)
++                        .HasColumnType("nvarchar(11)");
++
++                    b.Property<Guid>("UserId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.HasIndex("UserId")
++                        .IsUnique();
++
++                    b.ToTable("Profiles", (string)null);
++                });
++
++            modelBuilder.Entity("Rokalo.Domain.RefreshToken", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTime>("CreatedAt")
++                        .HasColumnType("datetime2");
++
++                    b.Property<DateTime>("ExpiresAt")
++                        .HasColumnType("datetime2");
++
++                    b.Property<Guid>("UserId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.ToTable("RefreshToken", (string)null);
++                });
++
++            modelBuilder.Entity("Rokalo.Domain.User", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<string>("Email")
++                        .IsRequired()
++                        .HasColumnType("nvarchar(max)");
++
++                    b.Property<string>("EmailVerificationCode")
++                        .IsRequired()
++                        .HasColumnType("nvarchar(max)");
++
++                    b.Property<bool>("IsEmailVerified")
++                        .HasColumnType("bit");
++
++                    b.Property<string>("Password")
++                        .IsRequired()
++                        .HasColumnType("nvarchar(max)");
++
++                    b.HasKey("Id");
++
++                    b.ToTable("Users", (string)null);
++                });
++
++            modelBuilder.Entity("Rokalo.Domain.Claim", b =>
++                {
++                    b.HasOne("Rokalo.Domain.User", null)
++                        .WithMany("Claims")
++                        .HasForeignKey("UserId")
++                        .OnDelete(DeleteBehavior.Cascade)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Rokalo.Domain.Profile", b =>
++                {
++                    b.HasOne("Rokalo.Domain.User", null)
++                        .WithOne("Profile")
++                        .HasForeignKey("Rokalo.Domain.Profile", "UserId")
++                        .OnDelete(DeleteBehavior.Cascade)
++                        .IsRequired();
++                });
++
++            modelBuilder.Entity("Rokalo.Domain.User", b =>
++                {
++                    b.Navigation("Claims");
++
++                    b.Navigation("Profile")
++                        .IsRequired();
++                });
++#pragma warning restore 612, 618
++        }
++    }
++}
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/20240730130528_AddRefreshTokensTable.cs b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/20240730130528_AddRefreshTokensTable.cs
+new file mode 100644
+index 0000000..c27004a
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/20240730130528_AddRefreshTokensTable.cs
+@@ -0,0 +1,36 @@
++﻿using System;
++using Microsoft.EntityFrameworkCore.Migrations;
++
++#nullable disable
++
++namespace Rokalo.Infrastructure.Db.Users.Migrations
++{
++    /// <inheritdoc />
++    public partial class AddRefreshTokensTable : Migration
++    {
++        /// <inheritdoc />
++        protected override void Up(MigrationBuilder migrationBuilder)
++        {
++            migrationBuilder.CreateTable(
++                name: "RefreshToken",
++                columns: table => new
++                {
++                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
++                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
++                    ExpiresAt = table.Column<DateTime>(type: "datetime2", nullable: false)
++                },
++                constraints: table =>
++                {
++                    table.PrimaryKey("PK_RefreshToken", x => x.Id);
++                });
++        }
++
++        /// <inheritdoc />
++        protected override void Down(MigrationBuilder migrationBuilder)
++        {
++            migrationBuilder.DropTable(
++                name: "RefreshToken");
++        }
++    }
++}
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/UsersDbContextModelSnapshot.cs b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/UsersDbContextModelSnapshot.cs
+index a91b843..56fa7ad 100644
+--- a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/UsersDbContextModelSnapshot.cs
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Migrations/UsersDbContextModelSnapshot.cs
+@@ -17,7 +17,7 @@ namespace Rokalo.Infrastructure.Db.Users.Migrations
+         {
+ #pragma warning disable 612, 618
+             modelBuilder
+-                .HasAnnotation("ProductVersion", "7.0.5")
++                .HasAnnotation("ProductVersion", "8.0.7")
+                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
+ 
+             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+@@ -75,6 +75,26 @@ namespace Rokalo.Infrastructure.Db.Users.Migrations
+                     b.ToTable("Profiles", (string)null);
+                 });
+ 
++            modelBuilder.Entity("Rokalo.Domain.RefreshToken", b =>
++                {
++                    b.Property<Guid>("Id")
++                        .ValueGeneratedOnAdd()
++                        .HasColumnType("uniqueidentifier");
++
++                    b.Property<DateTime>("CreatedAt")
++                        .HasColumnType("datetime2");
++
++                    b.Property<DateTime>("ExpiresAt")
++                        .HasColumnType("datetime2");
++
++                    b.Property<Guid>("UserId")
++                        .HasColumnType("uniqueidentifier");
++
++                    b.HasKey("Id");
++
++                    b.ToTable("RefreshToken", (string)null);
++                });
++
+             modelBuilder.Entity("Rokalo.Domain.User", b =>
+                 {
+                     b.Property<Guid>("Id")
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Repositories/RefreshTokenRepository.cs b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Repositories/RefreshTokenRepository.cs
+new file mode 100644
+index 0000000..d39614b
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Repositories/RefreshTokenRepository.cs
+@@ -0,0 +1,42 @@
++﻿namespace Rokalo.Infrastructure.Db.Users.Repositories
++{
++    using Microsoft.EntityFrameworkCore;
++    using Rokalo.Application.Contracts;
++    using Rokalo.Domain;
++    using System;
++    using System.Collections.Generic;
++    using System.Linq;
++    using System.Threading;
++    using System.Threading.Tasks;
++
++    internal sealed class RefreshTokenRepository : IRefreshTokenRepository
++    {
++        private readonly DbSet<RefreshToken> refreshTokens;
++
++        public RefreshTokenRepository(UsersDbContext usersDbContext)
++        {
++            this.refreshTokens = usersDbContext.Set<RefreshToken>();
++        }
++
++        public void Add(RefreshToken refreshToken)
++        {
++            this.refreshTokens.Add(refreshToken);
++        }
++
++        public void Delete(List<RefreshToken> refreshTokens)
++        {
++            this.refreshTokens.RemoveRange(refreshTokens);
++        }
++
++        public async Task<RefreshToken?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
++        {
++            return await this.refreshTokens.FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
++        }
++
++        public async Task<List<RefreshToken>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
++        {
++            var tokens = await this.refreshTokens.Where(x => x.UserId == userId).ToListAsync(cancellationToken);
++            return tokens;
++        }
++    }
++}
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Rokalo.Infrastructure.Db.Users.csproj b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Rokalo.Infrastructure.Db.Users.csproj
+index 67e01ff..f7520d6 100644
+--- a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Rokalo.Infrastructure.Db.Users.csproj
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/Rokalo.Infrastructure.Db.Users.csproj
+@@ -1,23 +1,29 @@
+ ﻿<Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+     <UserSecretsId>76b5839e-5286-4ee1-823a-0f4390e1a1eb</UserSecretsId>
+   </PropertyGroup>
+ 
+   <ItemGroup>
+-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
++    <PackageReference Include="Azure.Identity" Version="1.12.0" />
++    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
++    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+       <PrivateAssets>all</PrivateAssets>
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+     </PackageReference>
+-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
+-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
+-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
++    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.7" />
++    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
++    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
++      <PrivateAssets>all</PrivateAssets>
++      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
++    </PackageReference>
++    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
++    <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
+   </ItemGroup>
+ 
+   <ItemGroup>
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/UsersUnitOfWork.cs b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/UnitOfWork.cs
+similarity index 65%
+rename from src/Infrastructure/Rokalo.Infrastructure.Db.Users/UsersUnitOfWork.cs
+rename to src/Infrastructure/Rokalo.Infrastructure.Db.Users/UnitOfWork.cs
+index ece1c52..bd39878 100644
+--- a/src/Infrastructure/Rokalo.Infrastructure.Db.Users/UsersUnitOfWork.cs
++++ b/src/Infrastructure/Rokalo.Infrastructure.Db.Users/UnitOfWork.cs
+@@ -4,17 +4,20 @@
+     using System.Threading;
+     using System.Threading.Tasks;
+ 
+-    internal sealed class UsersUnitOfWork : IUsersUnitOfWork
++    internal sealed class UnitOfWork : IUnitOfWork
+     {
+         private readonly UsersDbContext context;
+ 
+-        public UsersUnitOfWork(IUserRepository users, UsersDbContext context)
++        public UnitOfWork(IUserRepository users, IRefreshTokenRepository refreshTokens, UsersDbContext context)
+         {
+             this.context = context;
+             this.Users = users;
++            this.RefreshTokens = refreshTokens;
+         }
+         public IUserRepository Users { get; }
+ 
++        public IRefreshTokenRepository RefreshTokens {  get; }
++
+         public async Task SaveChangesAsync(CancellationToken cancellationToken)
+         {
+             await this.context.SaveChangesAsync(cancellationToken);
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Security/DependencyInjection.cs b/src/Infrastructure/Rokalo.Infrastructure.Security/DependencyInjection.cs
+new file mode 100644
+index 0000000..40924ba
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Security/DependencyInjection.cs
+@@ -0,0 +1,96 @@
++﻿namespace Rokalo.Infrastructure.Security
++{
++    using Microsoft.AspNetCore.Authentication.JwtBearer;
++    using Microsoft.Extensions.Configuration;
++    using Microsoft.Extensions.DependencyInjection;
++    using Microsoft.Extensions.Options;
++    using Microsoft.IdentityModel.Tokens;
++    using Rokalo.Application.Contracts.Security;
++    using System.Text;
++
++    public class SecurityAdapterSettingsFactory : IConfigureOptions<SecurityAdapterConfigurations>
++    {
++        private readonly IConfiguration _configuration;
++
++        public SecurityAdapterSettingsFactory(IConfiguration configuration)
++        {
++            this._configuration = configuration;
++        }
++
++        public void Configure(SecurityAdapterConfigurations options)
++        {
++            this._configuration.GetSection(SecurityAdapterConfigurations.Key).Bind(options);
++        }
++    }
++
++    public static class DependencyInjection
++    {
++        public static IServiceCollection AddSecurityAdapter(
++            this IServiceCollection services,
++            SecurityAdapterConfigurations configurations)
++        {
++            services.ConfigureOptions<SecurityAdapterSettingsFactory>();
++            services.AddScoped<IPasswordHashingService, PasswordHashingService>();
++            services.AddScoped<ITokenService, TokenService>();
++
++            services.AddAuthentication(options =>
++            {
++                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
++                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
++                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
++            })
++                .AddJwtBearer(o =>
++                {
++                    o.TokenValidationParameters = new TokenValidationParameters
++                    {
++                        ValidIssuer = configurations.JwtTokenConfiguration.Issuer,
++                        ValidAudience = configurations.JwtTokenConfiguration.Audience,
++                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configurations.JwtTokenConfiguration.Secret)),
++                        ValidateIssuer = false,
++                        ValidateAudience = false,
++                        ValidateLifetime = false,
++                        ValidateIssuerSigningKey = true
++                    };
++                })
++                .AddFacebook( o =>
++                {
++                    o.AppId = configurations.FacebookOAuthConfiguration.AppId;
++                    o.AppSecret = configurations.FacebookOAuthConfiguration.AppSecret;
++                });
++
++            return services;
++        }
++    }
++
++    public class SecurityAdapterConfigurations
++    {
++        public const string Key = nameof(SecurityAdapterConfigurations);
++
++        public JwtTokenConfiguration JwtTokenConfiguration { get; set; } = default!;
++
++        public RefreshTokenConfiguration RefreshTokenConfiguration { get; set; } = default!;
++
++        public FacebookOAuthConfiguration FacebookOAuthConfiguration { get; set; } = default!;
++    }
++
++    public class JwtTokenConfiguration
++    {
++        public const string Key = nameof(JwtTokenConfiguration);
++        public string Issuer { get; set; } = default!;
++        public string Audience { get; set; } = default!;
++        public int ExpiresInMinutes { get; set; }
++        public string Secret { get; set; } = default!;
++    }
++    public class RefreshTokenConfiguration
++    {
++        public const string Key = nameof(RefreshTokenConfiguration);
++
++        public int ValidForDays { get; set; }
++    }
++
++    public class FacebookOAuthConfiguration
++    {
++        public string AppId { get; set; } = default!;
++        public string AppSecret { get; set; } = default!;
++    }
++}
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Security/Rokalo.Infrastructure.Security.csproj b/src/Infrastructure/Rokalo.Infrastructure.Security/Rokalo.Infrastructure.Security.csproj
+new file mode 100644
+index 0000000..7346a7d
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Security/Rokalo.Infrastructure.Security.csproj
+@@ -0,0 +1,24 @@
++﻿<Project Sdk="Microsoft.NET.Sdk">
++
++  <PropertyGroup>
++    <TargetFramework>net8.0</TargetFramework>
++    <ImplicitUsings>enable</ImplicitUsings>
++    <Nullable>enable</Nullable>
++  </PropertyGroup>
++
++  <ItemGroup>
++    <PackageReference Include="Facebook" Version="7.0.6" />
++    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.8" />
++    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
++    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />
++    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
++    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
++    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
++  </ItemGroup>
++
++  <ItemGroup>
++    <ProjectReference Include="..\..\Application\Rokalo.Application.Contracts\Rokalo.Application.Contracts.csproj" />
++  </ItemGroup>
++
++</Project>
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Security/Services/FacebookOAuthService.cs b/src/Infrastructure/Rokalo.Infrastructure.Security/Services/FacebookOAuthService.cs
+new file mode 100644
+index 0000000..78b2199
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Security/Services/FacebookOAuthService.cs
+@@ -0,0 +1,26 @@
++﻿namespace Rokalo.Infrastructure.Security.Services
++{
++    using Facebook;
++    using Rokalo.Application.Contracts.Models;
++    using Rokalo.Application.Contracts.Security;
++    using System.Threading.Tasks;
++
++    internal sealed class FacebookOAuthService : IFacebookOAuthService
++    {
++        public async Task<FacebookUserData> GetUserDataAsync(string accessToken)
++        {
++            var fbClient = new FacebookClient(accessToken);
++
++            // graph API query to get current user info on facebook
++            // https://developers.facebook.com/docs/graph-api/get-started
++            dynamic userInfo = await fbClient.GetTaskAsync("me?fields=id,email,name");
++
++            return new FacebookUserData
++            {
++                Id = Guid.Parse(userInfo.Id),
++                Email = userInfo.Email,
++                Name = userInfo.Name
++            };
++        }
++    }
++}
+diff --git a/src/Application/Rokalo.Application/Services/PasswordHashingService.cs b/src/Infrastructure/Rokalo.Infrastructure.Security/Services/PasswordHashingService.cs
+similarity index 93%
+rename from src/Application/Rokalo.Application/Services/PasswordHashingService.cs
+rename to src/Infrastructure/Rokalo.Infrastructure.Security/Services/PasswordHashingService.cs
+index 1158694..ba05765 100644
+--- a/src/Application/Rokalo.Application/Services/PasswordHashingService.cs
++++ b/src/Infrastructure/Rokalo.Infrastructure.Security/Services/PasswordHashingService.cs
+@@ -1,16 +1,10 @@
+-﻿namespace Rokalo.Application.Services
++﻿namespace Rokalo.Infrastructure.Security
+ {
+     using Microsoft.AspNetCore.Cryptography.KeyDerivation;
++    using Rokalo.Application.Contracts.Security;
+     using System;
+     using System.Security.Cryptography;
+ 
+-    internal interface IPasswordHashingService
+-    {
+-        string Hash(string password);
+-
+-        bool VerifyHash(string password, string providedPassword);
+-    }
+-
+     internal sealed class PasswordHashingService : IPasswordHashingService
+     {
+         private static readonly RandomNumberGenerator Rng = RandomNumberGenerator.Create();
+diff --git a/src/Infrastructure/Rokalo.Infrastructure.Security/Services/TokenService.cs b/src/Infrastructure/Rokalo.Infrastructure.Security/Services/TokenService.cs
+new file mode 100644
+index 0000000..49a0ebb
+--- /dev/null
++++ b/src/Infrastructure/Rokalo.Infrastructure.Security/Services/TokenService.cs
+@@ -0,0 +1,70 @@
++﻿namespace Rokalo.Infrastructure.Security
++{
++    using Microsoft.Extensions.Options;
++    using Microsoft.IdentityModel.Tokens;
++    using Rokalo.Application.Contracts.Security;
++    using Rokalo.Domain;
++    using System;
++    using System.Collections.Generic;
++    using System.IdentityModel.Tokens.Jwt;
++    using System.Security.Claims;
++    using System.Text;
++
++    internal sealed class TokenService : ITokenService
++    {
++        private readonly SecurityAdapterConfigurations settings;
++
++        public TokenService(IOptions<SecurityAdapterConfigurations> settings)
++        {
++            this.settings = settings.Value;
++        }
++
++        public string GenerateJwtToken(User user)
++        {
++            var issuer = this.settings.JwtTokenConfiguration.Issuer;
++
++            var audience = this.settings.JwtTokenConfiguration.Audience;
++
++            var claims = new List<System.Security.Claims.Claim>()
++            {
++                new System.Security.Claims.Claim(ClaimTypes.Name, user.Id.ToString()),
++                new System.Security.Claims.Claim(ClaimTypes.Email, user.Email),
++                new System.Security.Claims.Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
++                new System.Security.Claims.Claim(ClaimTypes.Role, "admin-test")
++            };
++
++            var notBefore = DateTime.UtcNow;
++
++            var expires = DateTime.UtcNow.AddMinutes(this.settings.JwtTokenConfiguration.ExpiresInMinutes);
++
++            var key = Encoding.UTF8.GetBytes(this.settings.JwtTokenConfiguration.Secret);
++
++            var signInCredentials = new SigningCredentials(
++                new SymmetricSecurityKey(key),
++                SecurityAlgorithms.HmacSha512Signature);
++
++            var token = new JwtSecurityToken(
++                issuer,
++                audience,
++                claims,
++                notBefore,
++                expires,
++                signInCredentials);
++
++            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
++
++            return jwtToken;
++        }
++
++        public RefreshToken GenerateRefreshToken(User user)
++        {
++            var token = new RefreshToken(
++                Guid.NewGuid(),
++                user.Id,
++                DateTime.UtcNow,
++                DateTime.UtcNow.AddDays(this.settings.RefreshTokenConfiguration.ValidForDays));
++
++            return token;
++        }
++    }
++}
+diff --git a/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/AccountsController.cs b/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/AccountsController.cs
+index 71ba3e4..8d74633 100644
+--- a/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/AccountsController.cs
++++ b/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/AccountsController.cs
+@@ -1,10 +1,12 @@
+ ﻿namespace Rokalo.Presentation.Api.Controllers.Accounts
+ {
+     using MediatR;
++    using Microsoft.AspNetCore.Authorization;
+     using Microsoft.AspNetCore.Http;
+     using Microsoft.AspNetCore.Mvc;
+     using Rokalo.Application.User.Commands;
+-    using System;
++    using Rokalo.Application.User.Models;
++    using Rokalo.Application.User.Responses;
+     using System.Threading.Tasks;
+ 
+     public class AccountsController : ApiControllerBase
+@@ -13,18 +15,18 @@
+         {
+         }
+ 
++        [AllowAnonymous]
+         [HttpPost("register")]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+ 
+-        public async Task<IActionResult> Post([FromBody] RegisterUserCommand request)
++        public async Task<IActionResult> Register([FromBody] RegisterUserCommand request)
+         {
+-            await this.Mediator.Send(request);
+-
+-            return this.NoContent();
++            return await this.ProcessAsync<RegisterUserCommand, RegisterUserResponse>(request);
+         }
+ 
++        [AllowAnonymous]
+         [HttpPost("email-confirmation")]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+@@ -32,11 +34,10 @@
+ 
+         public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailCommand request)
+         {
+-            await this.Mediator.Send(request);
+-
+-            return this.NoContent();
++            return await this.ProcessAsync(request);
+         }
+ 
++        [AllowAnonymous]
+         [HttpPost("resend-email-confirmation")]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+@@ -44,10 +45,28 @@
+ 
+         public async Task<IActionResult> ResendEmailConfirmation([FromBody] ResendConfirmationEmailCommand request)
+         {
+-            await this.Mediator.Send(request);
++            return await this.ProcessAsync(request);
++        }
++
++        [AllowAnonymous]
++        [HttpPost("login")]
++        [ProducesResponseType(StatusCodes.Status200OK)]
++        [ProducesResponseType(StatusCodes.Status400BadRequest)]
++        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+ 
+-            return this.NoContent();
++        public async Task<IActionResult> LoginUser([FromBody] LoginCommand request)
++        {
++            return await this.ProcessAsync<LoginCommand, TokenResponse>(request);
+         }
+ 
++        [Authorize]
++        [HttpPost("update-password")]
++        [ProducesResponseType(StatusCodes.Status200OK)]
++        [ProducesResponseType(StatusCodes.Status400BadRequest)]
++
++        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommand request)
++        {
++            return await this.ProcessAsync(request);
++        }
+     }
+ }
+diff --git a/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/ApiControllerBase.cs b/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/ApiControllerBase.cs
+index 48c769f..9d48806 100644
+--- a/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/ApiControllerBase.cs
++++ b/src/Presentation/Rokalo.Presentation.Api/Controllers/Accounts/ApiControllerBase.cs
+@@ -3,6 +3,7 @@
+     using MediatR;
+     using Microsoft.AspNetCore.Mvc;
+     using System.Net.Mime;
++    using System.Threading.Tasks;
+ 
+     [ApiController]
+     [Produces(MediaTypeNames.Application.Json)]
+@@ -15,5 +16,27 @@
+             this.Mediator = mediator;
+         }
+         protected IMediator Mediator { get; }
++
++        protected async Task<IActionResult> ProcessAsync<TCommand, TResponse> (
++            TCommand command)
++            where TCommand : IRequest<TResponse>
++        {
++            TResponse result = await this.Mediator.Send(command);
++
++            if (result is null)
++            {
++                return this.NotFound();
++            }
++            return this.Ok(result);
++        }
++
++        protected async Task<IActionResult> ProcessAsync<TCommand>(
++            TCommand command)
++            where TCommand : IRequest
++        {
++            await this.Mediator.Send(command);
++
++            return this.NoContent();
++        }
+     }
+ }
+diff --git a/src/Presentation/Rokalo.Presentation.Api/DependencyInjection.cs b/src/Presentation/Rokalo.Presentation.Api/DependencyInjection.cs
+index 17a41b6..f84e119 100644
+--- a/src/Presentation/Rokalo.Presentation.Api/DependencyInjection.cs
++++ b/src/Presentation/Rokalo.Presentation.Api/DependencyInjection.cs
+@@ -6,6 +6,7 @@
+     using Microsoft.AspNetCore.Routing;
+     using Microsoft.Extensions.DependencyInjection;
+     using Microsoft.Extensions.Hosting;
++    using Microsoft.OpenApi.Models;
+     using Newtonsoft.Json;
+     using Newtonsoft.Json.Serialization;
+     using Rokalo.Blocks.Common.Exceptions;
+@@ -15,6 +16,7 @@
+ 
+     public static class DependencyInjection
+     {
++        private const string Bearer = "Bearer";
+         public static IServiceCollection AddPresentationConfiguration(this IServiceCollection services, IHostEnvironment environment)
+         {
+             Action<RouteOptions> routeOptions = options => options.LowercaseUrls = true;
+@@ -33,7 +35,37 @@
+                 .AddControllers()
+                 .AddNewtonsoftJson(newtonsoftOptions);
+ 
+-            services.AddSwaggerGen();
++            services.AddSwaggerGen(c =>
++            {
++                //needed to include jwt token in request that needs authorization
++                // TODO maybe move this config to some extension class, look at grd ServiceCollecionExtensions
++                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
++
++                // Add JWT Authentication
++                c.AddSecurityDefinition(Bearer, new OpenApiSecurityScheme
++                {
++                    Name = "Authorization",
++                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\n\nExample: \"Bearer abc123\"",
++                    Type = SecuritySchemeType.ApiKey,
++                    Scheme = "Bearer",
++                    BearerFormat = "JWT",
++                    In = ParameterLocation.Header,
++                });
++                c.AddSecurityRequirement(new OpenApiSecurityRequirement
++                {
++                    {
++                        new OpenApiSecurityScheme
++                        {
++                            Reference = new OpenApiReference
++                            {
++                                Type = ReferenceType.SecurityScheme,
++                                Id = Bearer
++                            }
++                        },
++                        Array.Empty<string>()
++                    }
++                });
++            });
+ 
+             return services;
+         }
+@@ -53,7 +85,6 @@
+                 Detail = exception.Detail,
+                 Status = StatusCodes.Status400BadRequest
+             });
++            }
+         }
+     }
+-
+-}
+diff --git a/src/Presentation/Rokalo.Presentation.Api/Rokalo.Presentation.Api.csproj b/src/Presentation/Rokalo.Presentation.Api/Rokalo.Presentation.Api.csproj
+index b2c9bc6..51362fd 100644
+--- a/src/Presentation/Rokalo.Presentation.Api/Rokalo.Presentation.Api.csproj
++++ b/src/Presentation/Rokalo.Presentation.Api/Rokalo.Presentation.Api.csproj
+@@ -1,23 +1,21 @@
+ ﻿<Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+   </PropertyGroup>
+ 
+   <ItemGroup>
+     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.5" />
+-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
++    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
+     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+-    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
++    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+     <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+     <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+-    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
++    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.0" />
+     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+   </ItemGroup>
+ 
+diff --git a/src/Rokalo/Rokalo.csproj b/src/Rokalo/Rokalo.csproj
+index de579ce..120fb4a 100644
+--- a/src/Rokalo/Rokalo.csproj
++++ b/src/Rokalo/Rokalo.csproj
+@@ -1,7 +1,7 @@
+-<Project Sdk="Microsoft.NET.Sdk.Web">
++﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+ 
+   <PropertyGroup>
+-    <TargetFramework>net7.0</TargetFramework>
++    <TargetFramework>net8.0</TargetFramework>
+     <Nullable>enable</Nullable>
+     <UserSecretsId>6cb40438-c328-4455-bea4-0b30418df3c9</UserSecretsId>
+   </PropertyGroup>
+@@ -10,7 +10,13 @@
+     <ProjectReference Include="..\..\Rokalo.Infrastructure.Email\Rokalo.Infrastructure.Email.csproj" />
+     <ProjectReference Include="..\Application\Rokalo.Application\Rokalo.Application.csproj" />
+     <ProjectReference Include="..\Infrastructure\Rokalo.Infrastructure.Db.Users\Rokalo.Infrastructure.Db.Users.csproj" />
++    <ProjectReference Include="..\Infrastructure\Rokalo.Infrastructure.Security\Rokalo.Infrastructure.Security.csproj" />
+     <ProjectReference Include="..\Presentation\Rokalo.Presentation.Api\Rokalo.Presentation.Api.csproj" />
++    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
++      <!-- Remove IncludeAssets to allow compiling against the assembly -->
++      <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
++    </PackageReference>
+   </ItemGroup>
+ 
++
+ </Project>
+diff --git a/src/Rokalo/Startup.cs b/src/Rokalo/Startup.cs
+index 64c121a..d80ef5f 100644
+--- a/src/Rokalo/Startup.cs
++++ b/src/Rokalo/Startup.cs
+@@ -10,7 +10,9 @@
+     using Rokalo.Infrastructure.Db.Users;
+     using Rokalo.Infrastructure.Email;
+     using Rokalo.Infrastructure.Email.Configurations;
++    using Rokalo.Infrastructure.Security;
+     using Rokalo.Presentation.Api;
++    using System;
+ 
+     internal sealed class Startup
+     {
+@@ -24,23 +26,39 @@
+         public IWebHostEnvironment Environment { get; }
+ 
+         public MssqlSettings MssqlSettings =>
+-            Configuration
++            this.Configuration
+             .GetSection(MssqlSettings.Key)
+-            .Get<MssqlSettings>();
++            .Get<MssqlSettings>() ?? throw new ArgumentNullException(nameof(this.MssqlSettings));
+ 
+         public SmtpConfiguration SmtpConfiguration =>
+-            Configuration
++            this.Configuration
+             .GetSection(SmtpConfiguration.Key)
+-            .Get<SmtpConfiguration>();
++            .Get<SmtpConfiguration>() ?? throw new ArgumentNullException(nameof(this.SmtpConfiguration));
++
++        public SecurityAdapterConfigurations SecurityAdapterConfigurations =>
++            this.Configuration
++            .GetSection(SecurityAdapterConfigurations.Key)
++           .Get<SecurityAdapterConfigurations>() ?? throw new ArgumentNullException(nameof(this.SecurityAdapterConfigurations));
++
++        public JwtTokenConfiguration JwtTokenConfiguration =>
++            this.Configuration
++            .GetSection(JwtTokenConfiguration.Key)
++            .Get<JwtTokenConfiguration>() ?? throw new ArgumentNullException(nameof(this.JwtTokenConfiguration));
++
++        public RefreshTokenConfiguration RefreshTokenConfiguration =>
++            this.Configuration
++            .GetSection(RefreshTokenConfiguration.Key)
++            .Get<RefreshTokenConfiguration>() ?? throw new ArgumentNullException(nameof(this.RefreshTokenConfiguration));
+ 
+         public void ConfigureServices(IServiceCollection services)
+         {
+             services.AddCors();
+-            services.AddInfrastructureUsersConfiguration(MssqlSettings);
+-            services.AddInfrastructureEmailConfiguration(SmtpConfiguration);
++            services.AddInfrastructureUsersConfiguration(this.MssqlSettings);
++            services.AddInfrastructureEmailConfiguration(this.SmtpConfiguration);
+             services.Configure<SmtpConfiguration>(Configuration.GetSection(SmtpConfiguration.Key));
++            services.AddSecurityAdapter(this.SecurityAdapterConfigurations);
+             services.AddApplicationLayer();
+-            services.AddPresentationConfiguration(Environment);
++            services.AddPresentationConfiguration(this.Environment);
+             services.AddHttpContextAccessor();
+         }
+ 
+@@ -67,6 +85,10 @@
+ 
+             app.UseRouting();
+ 
++            app.UseAuthentication();
++
++            app.UseAuthorization();
++
+             app.UseEndpoints(endpoints =>
+             {
+                 endpoints.MapDefaultControllerRoute();

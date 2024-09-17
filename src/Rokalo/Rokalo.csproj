@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>6cb40438-c328-4455-bea4-0b30418df3c9</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Rokalo.Infrastructure.Email\Rokalo.Infrastructure.Email.csproj" />
+    <ProjectReference Include="..\Application\Rokalo.Application\Rokalo.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\Rokalo.Infrastructure.Db.Users\Rokalo.Infrastructure.Db.Users.csproj" />
+    <ProjectReference Include="..\Infrastructure\Rokalo.Infrastructure.Security\Rokalo.Infrastructure.Security.csproj" />
+    <ProjectReference Include="..\Presentation\Rokalo.Presentation.Api\Rokalo.Presentation.Api.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+      <!-- Remove IncludeAssets to allow compiling against the assembly -->
+      <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+    </PackageReference>
+  </ItemGroup>
+
+
+</Project>
