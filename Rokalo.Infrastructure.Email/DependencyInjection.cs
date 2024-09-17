@@ -1,6 +1,5 @@
 ﻿namespace Rokalo.Infrastructure.Email
 {
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Rokalo.Application.Contracts.Email;
     using Rokalo.Infrastructure.Email.Configurations;
