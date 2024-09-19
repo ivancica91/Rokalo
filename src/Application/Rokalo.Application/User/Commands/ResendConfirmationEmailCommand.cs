@@ -36,11 +36,11 @@
 
         public async Task Handle(ResendConfirmationEmailCommand command, CancellationToken cancellationToken)
         {
-            User user = await this.unitOfWork.Users.GetByEmailAsync(command.email, cancellationToken);
+            User? user = await this.unitOfWork.Users.GetByEmailAsync(command.email, cancellationToken);
 
             string newVerificationCode = Guid.NewGuid().ToString();
             
-            if (user == null)
+            if (user is null)
             {
                 throw new ArgumentNullException(nameof(user));
             }

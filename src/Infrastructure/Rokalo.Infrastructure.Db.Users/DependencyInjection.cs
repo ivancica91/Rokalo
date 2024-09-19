@@ -46,6 +46,6 @@
     public class MssqlSettings
     {
         public const string Key = nameof(MssqlSettings);
-        public string ConnectionString { get; set; } = default;
+        public string ConnectionString { get; set; } = default!;
     }
 }

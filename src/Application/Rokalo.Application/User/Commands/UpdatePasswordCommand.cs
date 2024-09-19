@@ -37,9 +37,14 @@
 
         public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await this.unitOfWork.Users.GetByEmailAsync(request.Email, cancellationToken);
+            var user = await this.unitOfWork.Users.GetByEmailAsync(request.Email, cancellationToken) ?? throw new ServiceValidationException("Invalid user");
 
-            var isOldPassValid = passwordHashingService.VerifyHash(user.Password, request.Password);
+            if (user.Password is null)
+            {
+                throw new ServiceValidationException("User has no password set.");
+            }
+
+            var isOldPassValid = this.passwordHashingService.VerifyHash(user.Password, request.Password);
 
             if (!isOldPassValid)
             {

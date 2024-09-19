@@ -52,7 +52,7 @@
         {
             var user = await unitOfWork.Users.GetByEmailAsync(email, cancellationToken);
 
-            return user == null;
+            return user is null;
         }
     }
 
@@ -71,7 +71,7 @@
 
         public async Task<RegisterUserResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            if (request.Password == null)
+            if (request.Password is null)
             {
                 throw new ServiceValidationException("Invalid user credentials.");
             }

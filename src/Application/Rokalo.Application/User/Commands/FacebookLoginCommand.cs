@@ -32,7 +32,7 @@
 
             var user = await this.unitOfWork.Users.GetByEmailAsync(fbUser.Email, cancellationToken);
 
-            if (user == null)
+            if (user is null)
             {
                 user = new User(
                     Guid.NewGuid(),

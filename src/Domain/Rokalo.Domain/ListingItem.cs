@@ -13,7 +13,7 @@
         public Guid CategoryId { get; protected set; }
         public Guid CityId { get; protected set; }
         public string Name { get; set; } = default!;
-        public string Description { get; set; }
+        public string Description { get; set; } = default!;
         public decimal Price { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
@@ -23,7 +23,7 @@
         // add this and enable file upload
         //public List<string> ImageUrls { get; set; } = new List<string>();
         public List<string> Tags { get; set; } = new List<string>();
-        public string ContactPhone { get; set; }
-        public string ContactEmail { get; set; }
+        public string ContactPhone { get; set; } = default!;
+        public string ContactEmail { get; set; } = default!;
     }
 }

@@ -21,10 +21,10 @@
         }
 
         public Guid Id { get; protected set; }
-        public string Email { get; protected set; }
+        public string Email { get; protected set; } = default!;
         public string? Password { get; protected set; }
         public bool IsEmailVerified { get; protected set; }
-        public string EmailVerificationCode{ get; protected set; }
+        public string EmailVerificationCode { get; protected set; } = default!;
         public Profile Profile { get; protected set; } = default!;
         public List<Claim> Claims { get; protected set; } = new();
 

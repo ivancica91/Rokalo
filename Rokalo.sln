@@ -57,6 +57,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo.Infrastructure.Secur
 		{E4383A88-F210-4AA2-AC5D-B41473CB4AAC} = {E4383A88-F210-4AA2-AC5D-B41473CB4AAC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rokalo.Application.UnitTests", "tests\Rokalo.Application.UnitTests\Rokalo.Application.UnitTests.csproj", "{155FEBDF-1056-41C9-B737-B06718FF9557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,10 @@ Global
 		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{155FEBDF-1056-41C9-B737-B06718FF9557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{155FEBDF-1056-41C9-B737-B06718FF9557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{155FEBDF-1056-41C9-B737-B06718FF9557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{155FEBDF-1056-41C9-B737-B06718FF9557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{9D4EE84F-23BA-400E-A5FD-C2C175F781C2} = {3494C0A5-30D4-43AE-B3A3-CBED3E6A98BE}
 		{D2254736-D53F-405F-B77F-93FB53C5658A} = {3494C0A5-30D4-43AE-B3A3-CBED3E6A98BE}
 		{6F303F4E-0664-4F9B-ACB6-C4B49F1FE3A2} = {3494C0A5-30D4-43AE-B3A3-CBED3E6A98BE}
+		{155FEBDF-1056-41C9-B737-B06718FF9557} = {5AB369E8-94B3-4C10-95BC-7036C8B51184}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7C79F8-11DD-4A70-9917-EC63D173DED2}

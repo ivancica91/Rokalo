@@ -42,5 +42,10 @@
         {
             return await this.users.FirstOrDefaultAsync(user => user.Email == email, cancellationToken);
         }
+
+        public async Task<User> GetByEmailSafeAsync(string email, CancellationToken cancellationToken)
+        {
+            return await this.GetByEmailAsync(email, cancellationToken) ?? throw new ServiceValidationException("User not found");
+        }
     }
 }

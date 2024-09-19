@@ -15,6 +15,8 @@
 
         Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken);
 
+        Task<User> GetByEmailSafeAsync(string email, CancellationToken cancellationToken);
+
         void Update(User user);
     }
 }
