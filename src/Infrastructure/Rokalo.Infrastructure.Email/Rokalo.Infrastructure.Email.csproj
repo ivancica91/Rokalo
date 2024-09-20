@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Application\Rokalo.Application.Contracts\Rokalo.Application.Contracts.csproj" />
+	<ProjectReference Include="..\..\Application\Rokalo.Application.Contracts\Rokalo.Application.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,7 @@
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using Rokalo.Application.Contracts.Security;
+    using Rokalo.Infrastructure.Security.Services;
     using System.Text;
 
     public class SecurityAdapterSettingsFactory : IConfigureOptions<SecurityAdapterConfigurations>
@@ -32,6 +33,8 @@
             services.ConfigureOptions<SecurityAdapterSettingsFactory>();
             services.AddScoped<IPasswordHashingService, PasswordHashingService>();
             services.AddScoped<ITokenService, TokenService>();
+
+            services.AddHttpClient<IFacebookOAuthService, FacebookOAuthService>();
 
             services.AddAuthentication(options =>
             {
