@@ -58,6 +58,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo.Infrastructure.Secur
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rokalo.Application.UnitTests", "tests\Rokalo.Application.UnitTests\Rokalo.Application.UnitTests.csproj", "{155FEBDF-1056-41C9-B737-B06718FF9557}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D261BC0E-EF7D-42E1-972C-C939A81DAE73} = {D261BC0E-EF7D-42E1-972C-C939A81DAE73}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

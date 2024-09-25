@@ -58,10 +58,14 @@
             byte[] hashedPassword = Convert.FromBase64String(password);
 
             if (hashedPassword is null || hashedPassword.Length == 0)
+            {
                 return false;
+            }
 
             if (hashedPassword.Length != 1 + SaltSize + Pbkdf2SubkeyLength)
+            {
                 return false;
+            }
 
             byte[] salt = new byte[SaltSize];
 

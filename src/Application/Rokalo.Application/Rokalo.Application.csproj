@@ -25,5 +25,9 @@
     <ProjectReference Include="..\..\Blocks\Rokalo.Blocks.Common.Extensions\Rokalo.Blocks.Common.Extensions.csproj" />
     <ProjectReference Include="..\Rokalo.Application.Contracts\Rokalo.Application.Contracts.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+	  <InternalsVisibleTo Include="Rokalo.Application.UnitTests"/>
+  </ItemGroup>
 
 </Project>

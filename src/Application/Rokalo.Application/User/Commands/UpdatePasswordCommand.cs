@@ -37,7 +37,7 @@
 
         public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await this.unitOfWork.Users.GetByEmailAsync(request.Email, cancellationToken) ?? throw new ServiceValidationException("Invalid user");
+            var user = await this.unitOfWork.Users.GetByEmailSafeAsync(request.Email, cancellationToken);
 
             if (user.Password is null)
             {
