@@ -44,16 +44,19 @@
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            else
+
+            if (user.IsEmailVerified)
             {
-                user.UpdateEmailVerificationCode(newVerificationCode);
-
-                this.unitOfWork.Users.Update(user);
-
-                await this.unitOfWork.SaveChangesAsync(cancellationToken);
-
-                await this.emailService.SendConfirmEmailAsync(command.email, user.Id, newVerificationCode);
+                return;
             }
+
+            user.UpdateEmailVerificationCode(newVerificationCode);
+
+            this.unitOfWork.Users.Update(user);
+
+            await this.unitOfWork.SaveChangesAsync(cancellationToken);
+
+            await this.emailService.SendConfirmEmailAsync(command.email, user.Id, newVerificationCode);
         }
     }
 }

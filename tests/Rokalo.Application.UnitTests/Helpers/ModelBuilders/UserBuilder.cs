@@ -15,31 +15,31 @@
 
         public UserBuilder WithId(Guid id)
         {
-            this.id = this.fixture.Create<Guid>();
+            this.id = id;
             return this;
         }
 
         public UserBuilder WithEmail(string email)
         {
-            this.email = this.fixture.Create<string>();
+            this.email = email;
             return this;
         } 
         
         public UserBuilder WithPassword(string password)
         {
-            this.password = this.fixture.Create<string>();
+            this.password = password;
             return this;
         }
 
         public UserBuilder WithEmailVerificationCode(string code)
         {
-            this.emailVerificationCode = this.fixture.Create<Guid>().ToString();
+            this.emailVerificationCode = code;
             return this;
         }
 
         public UserBuilder IsEmailVerified(bool isVerified)
         {
-            this.isEmailVerified = this.fixture.Create<bool>();
+            this.isEmailVerified = isVerified;
             return this;
         }
 

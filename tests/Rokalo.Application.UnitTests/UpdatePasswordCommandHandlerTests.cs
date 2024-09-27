@@ -22,7 +22,7 @@
         }
 
         [Fact]
-        public async Task Update_failed_with_user_not_found_exception()
+        public async Task Update_failed_when_user_does_not_exist()
         {
             // Arrange 
             var command = new UpdatePasswordCommand(this.fixture.Create<string>(), this.fixture.Create<string>(), this.fixture.Create<string>());
@@ -42,11 +42,12 @@
         public async Task Update_failed_when_new_password_is_invalid()
         {
             // Arrange 
-            var command = new UpdatePasswordCommand(this.fixture.Create<string>(), this.fixture.Create<string>(), this.fixture.Create<string>());
 
             var user = new UserBuilder().WithPassword(this.fixture.Create<string>()).Build();
 
-            this.unitOfWork.Setup(u => u.Users.GetByEmailSafeAsync(command.Email, It.IsAny<CancellationToken>()))
+            var command = new UpdatePasswordCommand(user.Email, user.Password ?? this.fixture.Create<string>(), this.fixture.Create<string>());
+
+            this.unitOfWork.Setup(u => u.Users.GetByEmailSafeAsync(user.Email, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(user);
 
             this.passwordHashingService.Setup(v => v.VerifyHash(user.Password ?? string.Empty, command.Password))
@@ -64,18 +65,18 @@
         public async Task Password_is_updated_successfully()
         {
             // Arrange 
-            var command = new UpdatePasswordCommand(this.fixture.Create<string>(), this.fixture.Create<string>(), this.fixture.Create<string>());
-
             var user = new UserBuilder().Build();
 
-            this.unitOfWork.Setup(u => u.Users.GetByEmailSafeAsync(command.Email, It.IsAny<CancellationToken>()))
+            var command = new UpdatePasswordCommand(user.Email, user.Password ?? this.fixture.Create<string>(), this.fixture.Create<string>());
+
+            this.unitOfWork.Setup(u => u.Users.GetByEmailSafeAsync(user.Email, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(user);
 
             this.passwordHashingService.Setup(v => v.VerifyHash(user.Password ?? string.Empty, command.Password))
                 .Returns(true);
 
-            var newPassHashedPassword = this.fixture.Create<string>(); 
-            
+            var newPassHashedPassword = this.fixture.Create<string>();
+
             this.passwordHashingService.Setup(v => v.Hash(command.NewPassword))
                 .Returns(newPassHashedPassword);
 
